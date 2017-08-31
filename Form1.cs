@@ -19,8 +19,8 @@ namespace TracertX
             InitializeComponent();
         }
 
-        GeoLite2IPSearcher geolite2 = new GeoLite2IPSearcher("GeoLite2-City.mmdb");
-        CzIPSearcher cz = new CzIPSearcher("qqwry.dat");
+        IPSearcher ip = new CzIPSearcher("qqwry.dat");
+        //IPSearcher ip = new GeoLite2IPSearcher("GeoLite2-City.mmdb");
 
         private void Tracert(string address, int timeout, int ttl = 1)
         {
@@ -55,13 +55,13 @@ namespace TracertX
                     case IPStatus.TimedOut:
                     case IPStatus.TtlExpired:
                         {
-                            Console.WriteLine(e.Reply.Address.ToString() + "\t" + cz.Search(e.Reply.Address));
+                            Console.WriteLine(e.Reply.Address.ToString() + "\t" + ip.Search(e.Reply.Address));
                             Tracert(textBox1.Text, 5, ttl + 1);
                         }
                         break;
                     case IPStatus.Success:
                         {
-                            Console.WriteLine(e.Reply.Address.ToString() + "\t" + cz.Search(e.Reply.Address));
+                            Console.WriteLine(e.Reply.Address.ToString() + "\t" + ip.Search(e.Reply.Address));
                         }
                         break;
                 }
